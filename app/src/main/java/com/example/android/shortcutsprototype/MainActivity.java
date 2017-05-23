@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import static com.example.android.shortcutsprototype.Dijkstra.shortestPathQuery;
+import static com.example.android.shortcutsprototype.Dijkstra.runQuery;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -43,36 +43,44 @@ public class MainActivity extends AppCompatActivity {
                     //call queries and display
                     String input1 = fromInput.getText().toString();
                     String input2 = toInput.getText().toString();
-                    String timeTaken = "";
-                    String pathTaken = "";
 
-                    if (input1 != null && input2 != null) {
-                        String query = shortestPathQuery(input1, input2);
-                        //String query = hardQuery(fromInput.getText().toString(), toInput.getText().toString());
+                    if (input1 != null && input2 != null) { //check whether input is null
+                        String finalString = runQuery(input1, input2);
+                        if (finalString.equals("The location you entered cannot be found")) {
+                            //make everything invisible
+                            findViewById(R.id.fast_title).setVisibility(View.INVISIBLE);
+                            dirFastestView.setVisibility(View.INVISIBLE);
+                            timeFastestView.setVisibility(View.INVISIBLE);
+                            findViewById(R.id.stairs_title).setVisibility(View.INVISIBLE);
+                            timeStairsView.setVisibility(View.INVISIBLE);
+                            findViewById(R.id.shelter_title).setVisibility(View.INVISIBLE);
+                            dirShelterView.setVisibility(View.INVISIBLE);
+                            timeShelterView.setVisibility(View.INVISIBLE);
 
-                        String[] res = query.split("_");
-                        //display results
-                        timeTaken = res[0];
-                        pathTaken = res[1];
+                            dirStairsView.setText(finalString);
+                        }else {
+                            String[] res = finalString.split("_");
+                            //print out
+                            findViewById(R.id.fast_title).setVisibility(View.VISIBLE);
+                            dirFastestView.setVisibility(View.VISIBLE);
+                            timeFastestView.setVisibility(View.VISIBLE);
+                            findViewById(R.id.stairs_title).setVisibility(View.VISIBLE);
+                            dirStairsView.setVisibility(View.VISIBLE);
+                            timeStairsView.setVisibility(View.VISIBLE);
+                            findViewById(R.id.shelter_title).setVisibility(View.VISIBLE);
+                            dirShelterView.setVisibility(View.VISIBLE);
+                            timeShelterView.setVisibility(View.VISIBLE);
 
-                    } else {
-                        timeTaken = "";
-                        pathTaken = "";
+                            timeFastestView.setText(res[0]);
+                            dirFastestView.setText(res[1]);
+                            timeStairsView.setText(res[2]);
+                            dirStairsView.setText(res[3]);
+                            timeShelterView.setText(res[4]);
+                            dirShelterView.setText(res[5]);
+                        }
+                    } else {    //either one has null input
+                        dirFastestView.setText("Please enter your location and destination");
                     }
-                    //print out
-                    findViewById(R.id.fast_title).setVisibility(View.VISIBLE);
-                    timeFastestView.setText(timeTaken);
-                    dirFastestView.setText(pathTaken);
-
-                    findViewById(R.id.stairs_title).setVisibility(View.VISIBLE);
-                    timeStairsView.setText(timeTaken);
-                    dirStairsView.setText(pathTaken);
-
-                    findViewById(R.id.shelter_title).setVisibility(View.VISIBLE);
-                    timeShelterView.setText(timeTaken);
-                    dirShelterView.setText(pathTaken);
-
-
                     handled = true;
                 }
                 return handled;
@@ -89,34 +97,45 @@ public class MainActivity extends AppCompatActivity {
                 //call queries and display
                 String input1 = fromInput.getText().toString();
                 String input2 = toInput.getText().toString();
-                String timeTaken = "";
-                String pathTaken = "";
 
-                if (input1 != null && input2 != null) {
-                    String query = shortestPathQuery(input1, input2);
-                    //String query = hardQuery(fromInput.getText().toString(), toInput.getText().toString());
+                if (input1 != null && input2 != null) { //check whether input is null
+                    String finalString = runQuery(input1, input2);
+                    if (finalString.equals("The location you entered cannot be found")) {
+                        //make everything invisible
+                        findViewById(R.id.fast_title).setVisibility(View.INVISIBLE);
+                        dirFastestView.setVisibility(View.INVISIBLE);
+                        timeFastestView.setVisibility(View.INVISIBLE);
+                        findViewById(R.id.stairs_title).setVisibility(View.INVISIBLE);
+                        timeStairsView.setVisibility(View.INVISIBLE);
+                        findViewById(R.id.shelter_title).setVisibility(View.INVISIBLE);
+                        dirShelterView.setVisibility(View.INVISIBLE);
+                        timeShelterView.setVisibility(View.INVISIBLE);
 
-                    String[] res = query.split("_");
-                    //display results
-                    timeTaken = res[0];
-                    pathTaken = res[1];
+                        dirStairsView.setText(finalString);
+                    }else {
+                        String[] res = finalString.split("_");
+                        //print out
+                        findViewById(R.id.fast_title).setVisibility(View.VISIBLE);
+                        dirFastestView.setVisibility(View.VISIBLE);
+                        timeFastestView.setVisibility(View.VISIBLE);
+                        findViewById(R.id.stairs_title).setVisibility(View.VISIBLE);
+                        dirStairsView.setVisibility(View.VISIBLE);
+                        timeStairsView.setVisibility(View.VISIBLE);
+                        findViewById(R.id.shelter_title).setVisibility(View.VISIBLE);
+                        dirShelterView.setVisibility(View.VISIBLE);
+                        timeShelterView.setVisibility(View.VISIBLE);
 
-                } else {
-                    timeTaken = "";
-                    pathTaken = "";
+                        timeFastestView.setText(res[0]);
+                        dirFastestView.setText(res[1]);
+                        timeStairsView.setText(res[2]);
+                        dirStairsView.setText(res[3]);
+                        timeShelterView.setText(res[4]);
+                        dirShelterView.setText(res[5]);
+                    }
+                } else {    //either one has no input
+                    dirFastestView.setText("Please enter your location and destination");
                 }
-                //print out
-                findViewById(R.id.fast_title).setVisibility(View.VISIBLE);
-                timeFastestView.setText(timeTaken);
-                dirFastestView.setText(pathTaken);
 
-                findViewById(R.id.stairs_title).setVisibility(View.VISIBLE);
-                timeStairsView.setText(timeTaken);
-                dirStairsView.setText(pathTaken);
-
-                findViewById(R.id.shelter_title).setVisibility(View.VISIBLE);
-                timeShelterView.setText(timeTaken);
-                dirShelterView.setText(pathTaken);
             }
         });
     }

@@ -11,9 +11,12 @@ public class Edge {
     //TODO: sheltered(weight or boolean?), and how to insert pictures?
 
     //constructor
-    public Edge(Vertex target, double timeTaken) {
+
+    public Edge(Vertex target, double timeTaken, double amountStairs, double shelterRating) {
         this.target = target;
         this.timeTaken = timeTaken;
+        this.amountStairs = amountStairs;
+        this.shelterRating = shelterRating;
     }
 
     //getters and setters

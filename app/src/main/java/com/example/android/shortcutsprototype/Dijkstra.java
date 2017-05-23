@@ -16,80 +16,8 @@ public class Dijkstra {
 
     private static final String LOG_TAG = "Dijkstra";
 
-    public static String testingQuery(String sourceName, String destName) {
-        String graph = "v0 Harrisburg\n" +
-                "v1 Baltimore\n" +
-                "v2 Washington\n" +
-                "v3 Philadelphia\n" +
-                "v4 Binghamton\n" +
-                "v5 Allentown\n" +
-                "v6 New York\n" +
-                "#\n" +
-                "v0 v1 79.83\n" +
-                "v0 v5 81.15\n" +
-                "v1 v0 79.75\n" +
-                "v1 v2 39.42\n" +
-                "v1 v3 103.00\n" +
-                "v2 v1 38.65\n" +
-                "v3 v1 102.53\n" +
-                "v3 v5 61.44\n" +
-                "v3 v6 96.79\n" +
-                "v4 v5 133.04\n" +
-                "v5 v0 81.77\n" +
-                "v5 v3 62.05\n" +
-                "v5 v4 134.47\n" +
-                "v5 v6 91.63\n" +
-                "v6 v3 97.24\n" +
-                "v6 v5 87.94";
-        Map<String, Vertex> vertexMap = new HashMap<String, Vertex>();
-        BufferedReader in = null;
-        try {
-            in = new BufferedReader(new StringReader(graph));
-            String line;
-            boolean inVertex = true;
-            while ((line = in.readLine()) != null) {
-                if (line.charAt(0) == '#') {
-                    inVertex = false;
-                    continue;
-                } else if (inVertex) {
-                    //store the vertices
-                    int indexOfSpace = line.indexOf(' ');
-                    String vertexId = line.substring(0, indexOfSpace);
-                    String vertexName = line.substring(indexOfSpace + 1);
-                    Vertex v = new Vertex(vertexName);
-                    vertexMap.put(vertexId, v);
-                } else {
-                    //store the edges
-                    String[] parts = line.split(" ");
-                    String vFrom = parts[0];
-                    Log.e(LOG_TAG, vFrom );
-                    String vTo = parts[1];
-                    Log.e(LOG_TAG, vTo );
-                    double timeTaken = Double.parseDouble(parts[2]);
-                    Log.e(LOG_TAG, timeTaken + "" );
-                    Vertex v = vertexMap.get(vFrom);
-                    if (v != null) {
-                        v.addEdge(new Edge(vertexMap.get(vTo), timeTaken));
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        } finally {
-            if (in != null)
-                try {
-                    in.close();
-                } catch (IOException ignore) {
-                }
-        }
-
-        return "asdf _ asdfa";
-    }
-
     //takes in names of the 2 locations and returns the time and path in 1 string
-    public static String shortestPathQuery(String sourceName, String destName) {
+    public static String runQuery(String sourceName, String destName) {
 
         //hardcoded
         String graph = "TLAB TLAB\n" +
@@ -105,38 +33,38 @@ public class Dijkstra {
                 "E5 E5\n" +
                 "LT6 LT6 \n" +
                 "# FROM|TO|Timetaken|AmountStairs|Sheltered\n" +
-                "TLAB EA 1.0\n" +
-                "EA E1A 1.0\n" +
-                "EA E1 1.0\n" +
-                "EA E3 1.0\n" +
-                "EA E3A 1.0\n" +
-                "E1 E1A 1.0\n" +
-                "E1 E2 1.0\n" +
-                "E1A EA 1.0\n" +
-                "E1A E1 1.0\n" +
-                "E1A E2 1.0\n" +
-                "E2 EA 1.0\n" +
-                "E2 E1 1.0\n" +
-                "E2 E1A 1.0\n" +
-                "E2 E3 1.0\n" +
-                "E2A E2 1.0\n" +
-                "E2A E4 1.0\n" +
-                "E3 TLAB 1.0\n" +
-                "E3 E1 1.0\n" +
-                "E3 E2 1.0\n" +
-                "E3 E4 1.0\n" +
-                "E3 LT6 1.0\n" +
-                "E3A EA 1.0\n" +
-                "E4 E3 1.0\n" +
-                "E4 E4A 1.0\n" +
-                "E4 E5 1.0\n" +
-                "E4A E4 1.0\n" +
-                "E5 E4 1.0\n" +
-                "LT6 E4 1.0";
+                "TLAB EA 1.0 5 0\n" +
+                "EA E1A 1.0 5 0\n" +
+                "EA E1 1.0 5 0\n" +
+                "EA E3 1.0 5 0\n" +
+                "EA E3A 1.0 5 0\n" +
+                "E1 E1A 1.0 5 0\n" +
+                "E1 E2 1.0 5 0\n" +
+                "E1A EA 1.0 5 0\n" +
+                "E1A E1 1.0 5 0\n" +
+                "E1A E2 1.0 5 0\n" +
+                "E2 EA 1.0 5 0\n" +
+                "E2 E1 1.0 5 0\n" +
+                "E2 E1A 1.0 5 0\n" +
+                "E2 E3 1.0 5 0\n" +
+                "E2A E2 1.0 5 0\n" +
+                "E2A E4 1.0 5 0\n" +
+                "E3 TLAB 1.0 5 0\n" +
+                "E3 E1 1.0 5 0\n" +
+                "E3 E2 1.0 5 0\n" +
+                "E3 E4 1.0 5 0\n" +
+                "E3 LT6 1.0 5 0\n" +
+                "E3A EA 1.0 5 0\n" +
+                "E4 E3 1.0 5 0\n" +
+                "E4 E4A 1.0 5 0\n" +
+                "E4 E5 1.0 5 0\n" +
+                "E4A E4 1.0 5 0\n" +
+                "E5 E4 1.0 5 0\n" +
+                "LT6 E4 1.0 5 0";
 
 
         //reading in from the text file and creating the map
-        Map<String,Vertex> vertexMap = new HashMap<String, Vertex>();
+        Map<String,Vertex> vertexMap1 = new HashMap<String, Vertex>();
 
         BufferedReader buff = null;
         try {
@@ -156,7 +84,7 @@ public class Dijkstra {
                     String vertexId = line.substring(0, indexOfSpace);
                     String vertexName = line.substring(indexOfSpace + 1);
                     Vertex v = new Vertex(vertexName);
-                    vertexMap.put(vertexId,v);
+                    vertexMap1.put(vertexId,v);
                     Log.v(LOG_TAG, vertexId + " " + vertexName);
                 } else {
                     //store the edges
@@ -164,15 +92,11 @@ public class Dijkstra {
                     String vFrom = parts[0];
                     String vTo = parts[1];
                     double timeTaken = Double.parseDouble(parts[2]);
-//                    //TODO: add more weights
-//                    //rating from 1 to 10, no stairs = 0, max upstairs = 10, max downstairs = 0
-//                    double amountStairs = Double.parseDouble(parts[3])
-//                    //sheltered should be a boolean but may not always be able to provide a fully sheltered path so just give most sheltered
-//                    //no shelter = 0, max shelter = 10, max shelter = 0
-//                    double shelteredRating = Double.parseDouble(parts[4])
-                    Vertex v = vertexMap.get(vFrom);
+                    double amountStairs = Double.parseDouble(parts[3]); //max downstairs = 0, no stairs = 5, max upstairs = 10
+                    double shelteredRating = Double.parseDouble(parts[4]); //totally unsheltered = 0, run for short distance under rain = 3, fully sheltered = 5
+                    Vertex v = vertexMap1.get(vFrom);
                     if (v != null) {
-                        v.addEdge(new Edge(vertexMap.get(vTo), timeTaken));
+                        v.addEdge(new Edge(vertexMap1.get(vTo), timeTaken, amountStairs, shelteredRating));
                     }
                 }
             }
@@ -187,28 +111,42 @@ public class Dijkstra {
                 }
         }
 
-        //create 2 copies for2 other queries
-        //TODO:create 2 copies for other queries
-        //Map<String, Vertex> map2 = vertexMap;
-        //Map<String, Vertex> map3 = vertexMap;
+        //create 2 copies for other queries
+        Map<String, Vertex> vertexMap2 = new HashMap<String, Vertex>(vertexMap1);
+        Map<String, Vertex> vertexMap3 = new HashMap<String, Vertex>(vertexMap1);
 
-        //running Dijkstra's algo here
-        Vertex source = vertexMap.get(sourceName);
-        Vertex destination = vertexMap.get(destName);
+        Vertex source1 = vertexMap1.get(sourceName);
+        Vertex destination1 = vertexMap1.get(destName);
 
-        if (source != null && destination != null) {
-            computePaths(source);
-            List<Vertex> shortestPath = getShortestPathTo(destination);
+        Vertex source2 = vertexMap2.get(sourceName);
+        Vertex destination2 = vertexMap2.get(destName);
 
-            String time = destination.getWeight() + "min _";
-            String path = printPath(shortestPath);
-            return time + "Path: " + path; //combined into 1 string, split later
+        Vertex source3 = vertexMap3.get(sourceName);
+        Vertex destination3 = vertexMap3.get(destName);
+
+        String finalString = "";    //final string to be returned
+
+        if (source1 != null && destination1 != null) {
+            //fastest path query
+            computePaths(source1, 1);
+            List<Vertex> shortestPath1 = getShortestPathTo(destination1);
+            finalString += destination1.getWeight() + "min_Path: " + printPath(shortestPath1) + "_";
+            //least stairs query
+            computePaths(source2, 2);
+            List<Vertex> shortestPath2 = getShortestPathTo(destination2);
+            finalString += destination2.getWeight() + "min_Path: " + printPath(shortestPath2) + "_";    //TODO: solve this problem
+            //most sheltered
+            computePaths(source3, 3);
+            List<Vertex> shortestPath3 = getShortestPathTo(destination3);
+            finalString += destination3.getWeight() + "min_Path: " + printPath(shortestPath3);
         }else
-            return "NA _ Location not found";
+            finalString = "The location you entered cannot be found";
+
+        return finalString;
     }
 
-    //takes in the entry vertex and ends up with a priority queue with shortest path to every vertex
-    public static void computePaths(Vertex origin) {
+    //takes in the entry vertex and ends up with a priority queue with fastest path to every vertex
+    public static void computePaths(Vertex origin, int queryNumber) {
 
         if (origin != null) {       //handle exceptions
             PriorityQueue<Vertex> vertexQueue = new PriorityQueue<Vertex>();
@@ -221,16 +159,20 @@ public class Dijkstra {
 
                 //for every vertex linked to u
                 for (Edge e : u.getAdjacencies()) {
-
                     Vertex v = e.getTarget();
-                    double edgeTimeTaken = e.getTimeTaken();
-                    double timeToV = u.getWeight() + edgeTimeTaken;
+                    double edgeWeight = 0.0;
+                    switch (queryNumber){   //settles the different queries
+                        case 1: edgeWeight = e.getTimeTaken(); break;
+                        case 2: edgeWeight = e.getAmountStairs(); break;
+                        case 3: edgeWeight = e.getShelterRating(); break;
+                    }
+                    double labelWeight = u.getWeight() + edgeWeight;
 
                     //if vertex is unvisited, change the label of v to the time taken from the start
                     //if visited, label will be updated with the shorter time taken
-                    if (timeToV < v.getWeight()) {
+                    if (labelWeight < v.getWeight()) {
                         vertexQueue.remove(v);
-                        v.setWeight(timeToV); //updates the shorter time
+                        v.setWeight(labelWeight); //updates the shorter time
                         v.setPrevious(u);   //updates the shorter path
                         vertexQueue.add(v);
                     }
@@ -260,7 +202,7 @@ public class Dijkstra {
         for (int i = 0; i < path.size(); i++) {
             formattedPath += path.get(i).getName();
             if (i != path.size() - 1)
-                formattedPath += " => ";
+                formattedPath += " -> ";
         }
         return formattedPath;
     }
