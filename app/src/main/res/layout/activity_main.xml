@@ -1,77 +1,249 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_weight="1"
+    android:weightSum="1">
 
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPostalAddress"
-        android:imeOptions="actionSend"
-        android:hint="Enter current location"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp" />
+        android:layout_alignParentStart="true">
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:imeOptions="actionSend"
-        android:hint="Enter destination"
-        android:layout_marginTop="53dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/editText1" />
+        <EditText
+            android:id="@+id/to_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/from_input"
+            android:layout_below="@+id/from_input"
+            android:ems="10"
+            android:hint="Enter destination"
+            android:imeOptions="actionSend"
+            android:inputType="textAutoComplete|textPostalAddress" />
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_marginTop="66dp"
-        android:layout_below="@+id/editText1"
-        android:layout_centerHorizontal="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/to_input"
+            android:layout_alignBottom="@+id/to_input"
+            android:layout_toStartOf="@+id/to_input"
+            android:text="To:" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_alignStart="@+id/textView1"
-        android:layout_below="@+id/textView1" />
+        <EditText
+            android:id="@+id/from_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:hint="Enter current location"
+            android:imeOptions="actionSend"
+            android:inputType="textAutoComplete|textPostalAddress" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/from_input"
+            android:layout_alignBottom="@+id/from_input"
+            android:layout_toStartOf="@+id/from_input"
+            android:text="From:"
+            android:id="@+id/textView" />
+
+        <Button
+            android:id="@+id/go_button"
+            android:layout_width="43dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/to_input"
+            android:text="Go" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="39dp"
-        android:text="Button" />
+        android:layout_alignParentStart="true"
+        android:orientation="vertical"
+        android:layout_weight="0.46">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="To:"
-        android:layout_alignBaseline="@+id/editText2"
-        android:layout_alignBottom="@+id/editText2"
-        android:layout_toStartOf="@+id/editText2" />
+        <LinearLayout
+            android:id="@+id/fastest_item"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:padding="0dp">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="From:"
-        android:layout_alignBaseline="@+id/editText1"
-        android:layout_alignBottom="@+id/editText1"
-        android:layout_toStartOf="@+id/editText1" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_weight="12"
+                android:orientation="vertical">
 
-</RelativeLayout>
+
+                <TextView
+                    android:id="@+id/fast_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-medium"
+                    android:maxLines="1"
+                    android:text="Fastest Path"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
+                    tools:text="Fastest Path" />
+
+                <TextView
+                    android:id="@+id/fastest_directions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    tools:text="Long placeholder path that should wrap to more than 2 lines of text" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/fastest_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="12sp"
+                tools:text="x min" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/stairs_item"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:padding="0dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_weight="12"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/stairs_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-medium"
+                    android:maxLines="1"
+                    android:text="Least stairs Path"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
+                    tools:text="Least stairs Path" />
+
+                <TextView
+                    android:id="@+id/least_stairs_directions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    tools:text="Long placeholder path that should wrap to more than 2 lines of text" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/least_stairs_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="12sp"
+                tools:text="x min" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sheltered_item"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:padding="0dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_weight="12"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/shelter_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-medium"
+                    android:maxLines="1"
+                    android:text="Most Sheltered Path"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
+                    tools:text="Most Sheltered Path" />
+
+                <TextView
+                    android:id="@+id/sheltered_directions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    tools:text="Long placeholder path that should wrap to more than 2 lines of text" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/sheltered_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="12sp"
+                tools:text="x min" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

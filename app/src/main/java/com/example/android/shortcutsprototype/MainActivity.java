@@ -9,17 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.List;
-
 import static com.example.android.shortcutsprototype.Dijkstra.shortestPathQuery;
 
 
 public class MainActivity extends AppCompatActivity {
-
-    //stores an adjacency list
-    public static Vertex[] adjList;
-    public static int numVertex;
-    public static List<Vertex> shortestPath;
 
     private static final String LOG_TAG = "MyActivity";
 
@@ -28,15 +21,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button = (Button) findViewById(R.id.button);
-        final TextView textView1 = (TextView) findViewById(R.id.textView1);
-        final TextView textView2 = (TextView) findViewById(R.id.textView2);
+        final EditText fromInput = (EditText) findViewById(R.id.from_input);
+        final EditText toInput = (EditText) findViewById(R.id.to_input);
+        Button button = (Button) findViewById(R.id.go_button);
 
-        final EditText fromInput = (EditText) findViewById(R.id.editText1);
-        final EditText toInput = (EditText) findViewById(R.id.editText2);
+        final TextView dirFastestView = (TextView) findViewById(R.id.fastest_directions);
+        final TextView timeFastestView = (TextView) findViewById(R.id.fastest_time);
+
+        final TextView dirStairsView = (TextView) findViewById(R.id.least_stairs_directions);
+        final TextView timeStairsView = (TextView) findViewById(R.id.least_stairs_time);
+
+        final TextView dirShelterView = (TextView) findViewById(R.id.sheltered_directions);
+        final TextView timeShelterView = (TextView) findViewById(R.id.sheltered_time);
 
         //on editor action listener for send button in keyboard, displays shortest path results
-        fromInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        TextView.OnEditorActionListener startSearch = new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
@@ -53,22 +52,35 @@ public class MainActivity extends AppCompatActivity {
 
                         String[] res = query.split("_");
                         //display results
-                        timeTaken = "Shortest time taken: " + res[0];
-                        pathTaken = "Path taken: " + res[1];
+                        timeTaken = res[0];
+                        pathTaken = res[1];
 
                     } else {
                         timeTaken = "";
                         pathTaken = "";
                     }
                     //print out
-                    textView1.setText(timeTaken);
-                    textView2.setText(pathTaken);
+                    findViewById(R.id.fast_title).setVisibility(View.VISIBLE);
+                    timeFastestView.setText(timeTaken);
+                    dirFastestView.setText(pathTaken);
+
+                    findViewById(R.id.stairs_title).setVisibility(View.VISIBLE);
+                    timeStairsView.setText(timeTaken);
+                    dirStairsView.setText(pathTaken);
+
+                    findViewById(R.id.shelter_title).setVisibility(View.VISIBLE);
+                    timeShelterView.setText(timeTaken);
+                    dirShelterView.setText(pathTaken);
+
 
                     handled = true;
                 }
                 return handled;
             }
-        });
+        };
+
+        fromInput.setOnEditorActionListener(startSearch);
+        toInput.setOnEditorActionListener(startSearch);
 
         //onClickListener for button to display shortest path results
         button.setOnClickListener(new View.OnClickListener() {
@@ -86,16 +98,25 @@ public class MainActivity extends AppCompatActivity {
 
                     String[] res = query.split("_");
                     //display results
-                    timeTaken = "Shortest time taken: " + res[0];
-                    pathTaken = "Path taken: " + res[1];
+                    timeTaken = res[0];
+                    pathTaken = res[1];
 
                 } else {
                     timeTaken = "";
                     pathTaken = "";
                 }
                 //print out
-                textView1.setText(timeTaken);
-                textView2.setText(pathTaken);
+                findViewById(R.id.fast_title).setVisibility(View.VISIBLE);
+                timeFastestView.setText(timeTaken);
+                dirFastestView.setText(pathTaken);
+
+                findViewById(R.id.stairs_title).setVisibility(View.VISIBLE);
+                timeStairsView.setText(timeTaken);
+                dirStairsView.setText(pathTaken);
+
+                findViewById(R.id.shelter_title).setVisibility(View.VISIBLE);
+                timeShelterView.setText(timeTaken);
+                dirShelterView.setText(pathTaken);
             }
         });
     }

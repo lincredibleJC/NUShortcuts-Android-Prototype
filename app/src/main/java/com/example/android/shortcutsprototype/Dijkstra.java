@@ -202,9 +202,9 @@ public class Dijkstra {
 
             String time = destination.getWeight() + "min _";
             String path = printPath(shortestPath);
-            return time + path; //combined into 1 string, split later
+            return time + "Path: " + path; //combined into 1 string, split later
         }else
-            return "Location not found _ Location not found";
+            return "NA _ Location not found";
     }
 
     //takes in the entry vertex and ends up with a priority queue with shortest path to every vertex
