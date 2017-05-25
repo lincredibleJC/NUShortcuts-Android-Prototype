@@ -25,12 +25,15 @@ public class MainActivity extends AppCompatActivity {
         final EditText toInput = (EditText) findViewById(R.id.to_input);
         Button button = (Button) findViewById(R.id.go_button);
 
+        final TextView titleFastestView = (TextView) findViewById(R.id.fast_title);
         final TextView dirFastestView = (TextView) findViewById(R.id.fastest_directions);
         final TextView timeFastestView = (TextView) findViewById(R.id.fastest_time);
 
+        final TextView titleStairsView = (TextView) findViewById(R.id.stairs_title);
         final TextView dirStairsView = (TextView) findViewById(R.id.least_stairs_directions);
         final TextView timeStairsView = (TextView) findViewById(R.id.least_stairs_time);
 
+        final TextView titleShelterView = (TextView) findViewById(R.id.shelter_title);
         final TextView dirShelterView = (TextView) findViewById(R.id.sheltered_directions);
         final TextView timeShelterView = (TextView) findViewById(R.id.sheltered_time);
 
@@ -47,30 +50,30 @@ public class MainActivity extends AppCompatActivity {
                     if (input1 != null && input2 != null) { //check whether input is null
                         String finalString = runQuery(input1, input2);
                         if (finalString.equals("The location you entered cannot be found")) {
-                            //make everything invisible
-                            findViewById(R.id.fast_title).setVisibility(View.INVISIBLE);
+                            //make everything invisible except for the locations not found text
+                            titleFastestView.setVisibility(View.INVISIBLE);
                             dirFastestView.setVisibility(View.INVISIBLE);
                             timeFastestView.setVisibility(View.INVISIBLE);
-                            findViewById(R.id.stairs_title).setVisibility(View.INVISIBLE);
+                            titleStairsView.setVisibility(View.INVISIBLE);
                             timeStairsView.setVisibility(View.INVISIBLE);
-                            findViewById(R.id.shelter_title).setVisibility(View.INVISIBLE);
+                            dirStairsView.setText(finalString);//set locations not found text
+                            titleShelterView.setVisibility(View.INVISIBLE);
                             dirShelterView.setVisibility(View.INVISIBLE);
                             timeShelterView.setVisibility(View.INVISIBLE);
-
-                            dirStairsView.setText(finalString);
                         }else {
                             String[] res = finalString.split("_");
-                            //print out
-                            findViewById(R.id.fast_title).setVisibility(View.VISIBLE);
+
+                            //make all visible
+                            titleFastestView.setVisibility(View.VISIBLE);
                             dirFastestView.setVisibility(View.VISIBLE);
                             timeFastestView.setVisibility(View.VISIBLE);
-                            findViewById(R.id.stairs_title).setVisibility(View.VISIBLE);
+                            titleStairsView.setVisibility(View.VISIBLE);
                             dirStairsView.setVisibility(View.VISIBLE);
                             timeStairsView.setVisibility(View.VISIBLE);
-                            findViewById(R.id.shelter_title).setVisibility(View.VISIBLE);
+                            titleShelterView.setVisibility(View.VISIBLE);
                             dirShelterView.setVisibility(View.VISIBLE);
                             timeShelterView.setVisibility(View.VISIBLE);
-
+                            //displays results
                             timeFastestView.setText(res[0]);
                             dirFastestView.setText(res[1]);
                             timeStairsView.setText(res[2]);
@@ -81,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
                     } else {    //either one has null input
                         dirFastestView.setText("Please enter your location and destination");
                     }
+
                     handled = true;
                 }
                 return handled;
@@ -101,30 +105,30 @@ public class MainActivity extends AppCompatActivity {
                 if (input1 != null && input2 != null) { //check whether input is null
                     String finalString = runQuery(input1, input2);
                     if (finalString.equals("The location you entered cannot be found")) {
-                        //make everything invisible
-                        findViewById(R.id.fast_title).setVisibility(View.INVISIBLE);
+                        //make everything invisible except for the locations not found text
+                        titleFastestView.setVisibility(View.INVISIBLE);
                         dirFastestView.setVisibility(View.INVISIBLE);
                         timeFastestView.setVisibility(View.INVISIBLE);
-                        findViewById(R.id.stairs_title).setVisibility(View.INVISIBLE);
+                        titleStairsView.setVisibility(View.INVISIBLE);
                         timeStairsView.setVisibility(View.INVISIBLE);
-                        findViewById(R.id.shelter_title).setVisibility(View.INVISIBLE);
+                        dirStairsView.setText(finalString);//set locations not found text
+                        titleShelterView.setVisibility(View.INVISIBLE);
                         dirShelterView.setVisibility(View.INVISIBLE);
                         timeShelterView.setVisibility(View.INVISIBLE);
-
-                        dirStairsView.setText(finalString);
                     }else {
                         String[] res = finalString.split("_");
-                        //print out
-                        findViewById(R.id.fast_title).setVisibility(View.VISIBLE);
+
+                        //make all visible
+                        titleFastestView.setVisibility(View.VISIBLE);
                         dirFastestView.setVisibility(View.VISIBLE);
                         timeFastestView.setVisibility(View.VISIBLE);
-                        findViewById(R.id.stairs_title).setVisibility(View.VISIBLE);
+                        titleStairsView.setVisibility(View.VISIBLE);
                         dirStairsView.setVisibility(View.VISIBLE);
                         timeStairsView.setVisibility(View.VISIBLE);
-                        findViewById(R.id.shelter_title).setVisibility(View.VISIBLE);
+                        titleShelterView.setVisibility(View.VISIBLE);
                         dirShelterView.setVisibility(View.VISIBLE);
                         timeShelterView.setVisibility(View.VISIBLE);
-
+                        //displays results
                         timeFastestView.setText(res[0]);
                         dirFastestView.setText(res[1]);
                         timeStairsView.setText(res[2]);
@@ -132,13 +136,14 @@ public class MainActivity extends AppCompatActivity {
                         timeShelterView.setText(res[4]);
                         dirShelterView.setText(res[5]);
                     }
-                } else {    //either one has no input
+                } else {    //either one has null input
                     dirFastestView.setText("Please enter your location and destination");
                 }
 
             }
         });
     }
+
 }
 
 
